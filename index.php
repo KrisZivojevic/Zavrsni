@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,7 +19,9 @@
 
 <body>
 
-<header>
+<?php include_once('header.php'); ?>
+
+<!-- <header>
     <div class="blog-masthead">
         <div class="container">
             <nav class="nav">
@@ -39,7 +40,7 @@
             <p class="lead blog-description">An example blog template built with Bootstrap.</p>
         </div>
     </div>
-</header>
+</header> -->
 
 <main role="main" class="container">
 
