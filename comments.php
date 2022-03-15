@@ -1,38 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
+<?php include_once('config/db.php');
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+if (isset($_GET['post_id'])) {
+      
+  $sql = "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
+  $comments = getDataFromServer($sql, $connection, true);
+  // echo '<pre>';
+  // var_dump($comments);
+  // echo '</pre>';
+} else {
+  echo ("Post_id nije prosledjen kroz $_GET");
+}
 
-    <title>Vivify Blog</title>
+?>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<ul>
+  <?php 
+  
+  foreach ($comments as $comment) {
+  
+  ?>
 
-    <!-- Custom styles for this template -->
-    <link href="styles/blog.css" rel="stylesheet">
-    <link href="styles/styles.css" rel="stylesheet">
-</head>
+<li>
+  <h4><?php echo ($comment['author'])?></h4>
+  <p><?php echo ($comment['text'])?></p>
+  <hr />
+</li>
 
-<body>
+<?php
+  }
+?>
 
-<?php include_once('header.php'); ?>
-
-<main role="main" class="container">
-
-    <div class="row">
-<!-- TO DO: comments -->
-
-        <?php include('sidebar.php'); ?>
-    </div><!-- /.row -->
-
-</main><!-- /.container -->
-
-<?php include_once('footer.php'); ?>
-
-</body>
-</html>
+</ul>
