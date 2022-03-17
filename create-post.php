@@ -1,3 +1,20 @@
+<?php include_once('config/db.php'); 
+if(isset($_POST['submit'])) {
+// $sql = "INSERT INTO posts"
+    $body = $_POST['body'];
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    $currentDate = date("Y-m-d h:i");
+    $sql = "INSERT INTO posts (title, body, author, created_at) VALUES ('$title', '$body', '$author', '$currentDate')";
+    
+    
+    $statement = $connection->prepare($sql);
+    $statement->execute();
+    header('Location: ./posts.php');
+  } else {
+  echo "Ne postoji";
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,20 +42,21 @@
 <main role="main" class="container">
 
     <div class="row">
-    <form class="col-sm-8">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" placeholder="blog title">
-  </div>
-  <div class="form-group">
-    <label for="created">Created by</label>
-    <input type="text" class="form-control" id="created" placeholder="Kristina">
-  </div>
-  <div class="form-group">
-    <label for="blogcontent">Blog text</label>
-    <textarea class="form-control" id="blogcontent" rows="3"></textarea>
-  </div>
-</form>
+    <form action="create-post.php" method="POST" class="col-sm-8">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input name="title" type="text" class="form-control" id="title" placeholder="blog title" required>
+      </div>
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input name="author" type="text" class="form-control" id="author" placeholder="Kristina" required>
+      </div>
+      <div class="form-group">
+        <label for="body">Blog text</label>
+        <textarea name="body" class="form-control" id="body" rows="3" required></textarea>
+      </div>
+      <button name="submit" id="submit" type="submit">Create post</button>
+    </form>
 
         <?php include('sidebar.php'); ?>
     </div><!-- /.row -->
